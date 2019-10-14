@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Chat implementado com NodeJs e ReactJs",
   "scripts": {
-    "dev": "gulp nodemon-src"
+    "dev": "gulp nodemon-src",
+    "start": "node src/bin/server.js"
   },
   "author": "mateusxis",
   "license": "MIT",

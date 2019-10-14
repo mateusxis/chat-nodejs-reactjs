@@ -10,7 +10,7 @@ const compression = require("compression");
 const methodOverride = require("method-override");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./api.json.js.js");
+const swaggerDocument = require("./api.json");
 const mongoose = require("mongoose");
 
 const socket = require("./config/socket");
