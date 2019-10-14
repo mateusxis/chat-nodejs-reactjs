@@ -9,6 +9,8 @@ const bodyParser = require("body-parser");
 const compression = require("compression");
 const methodOverride = require("method-override");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./api.json.js.js");
 const mongoose = require("mongoose");
 
 const socket = require("./config/socket");
@@ -39,6 +41,8 @@ app.use(cors());
 if (process.env.NODE_ENV !== "production") {
   app.use(require("morgan")("dev"));
 }
+
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 routes(app);
 

@@ -1,0 +1,404 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: sw-gruposoma-api
+  description: Repositório das APIs do Projeto Query
+  contact:
+    name: SomaLabs
+    email: somalabs@somagrupo.com.br
+    url: http://www.somalabs.com.br
+host: query-api.somalabs.com.br
+basePath: /apis/v1/
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /controles:
+    get:
+      tags: 
+      - Controles
+      description: |
+        Retorna o ultimo query_controle salvo no banco de dados.
+      operationId: buscaUltimoQueryControle
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/query_controle'
+        204:
+          description: No content
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags: 
+      - Controles
+      description: Salva query_controle no banco de dados.
+      operationId: salvaQueryControle
+      parameters:
+        - name: controle
+          in: body
+          description: query_controle adicionado no banco de dados.
+          required: true
+          schema:
+            $ref: '#/definitions/query_controle'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/query_controle'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /databases:
+    get:
+      tags:
+      - Databases
+      description: Lista todas as query_databases salvas no banco de dados.
+      operationId: listaQueryDatabase
+      parameters:
+        - name: ativado
+          in: header
+          description: Busca as query_database que estão ativados
+          required: true
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/query_database'
+        204:
+          description: No content
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /execucoes:
+    get:
+      tags: 
+      - Execucoes
+      description: Busca todas query_execucao's salvas no banco de dados.
+      operationId: listaQueryExecucao
+      parameters:
+        - name: id_query_sql
+          in: query
+          description: Busca as query_execucao's estão ligadas pelo id_query_sql
+          required: true
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/query_execucao'
+        204:
+          description: No content
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags: 
+      - Execucoes
+      description: Salva query_execucao no banco de dados.
+      operationId: salvaQueryExecucao
+      parameters:
+        - name: execucao
+          in: body
+          description: query_execucao adicionado no banco de dados.
+          required: true
+          schema:
+            $ref: '#/definitions/query_execucao'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/query_execucao'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /execucoes/{id}:
+    get:
+      tags:
+      - Execucoes
+      description: Retorna um query_execucao com base em um único ID.
+      operationId: buscaQueryExecucao
+      parameters:
+        - name: id
+          in: path
+          description: ID do query_execucao a buscar
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/query_execucao'
+        204:
+          description: No content
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      tags: 
+      - Execucoes
+      description: Atualiza um query_execucao com base em um único ID.
+      operationId: atualizaQueryExecucao
+      parameters:
+        - name: id
+          in: path
+          description: ID do query_execucao a buscar
+          required: true
+          type: integer
+          format: int64
+        - name: execucao
+          in: body
+          description: query_execucao adicionado no banco de dados.
+          required: true
+          schema:
+            $ref: '#/definitions/query_execucao'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/query_execucao'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /sqls:
+    get:
+      tags: 
+      - SQLs
+      description: Busca todas query_sql's salvas no banco de dados.
+      operationId: listaQuerySQL
+      parameters:
+        - name: filtro
+          in: query
+          description: Usa filtro para filtra query_sql
+          required: false
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/query_sql'
+        204:
+          description: No content
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags: 
+      - SQLs
+      description: Salva query_sql no banco de dados.
+      operationId: salvaQuerySQL
+      parameters:
+        - name: sql
+          in: body
+          description: query_sql adicionado no banco de dados.
+          required: true
+          schema:
+            $ref: '#/definitions/query_sql'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/query_sql'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /sqls/{id}:
+    get:
+      tags:
+      - SQLs
+      description: Retorna um query_sql com base em um único ID.
+      operationId: buscaQuerySQL
+      parameters:
+        - name: id
+          in: path
+          description: ID do query_sql a buscar
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/query_sql'
+        204:
+          description: No content
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      tags: 
+      - SQLs
+      description: Atualiza um query_sql com base em um único ID.
+      operationId: atualizaQuerySQL
+      parameters:
+        - name: id
+          in: path
+          description: ID do query_sql a buscar
+          required: true
+          type: integer
+          format: int64
+        - name: sql
+          in: body
+          description: query_sql adicionado no banco de dados.
+          required: true
+          schema:
+            $ref: '#/definitions/query_sql'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/query_sql'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /sqls/executa/{id}:
+    post:
+      tags: 
+      - SQLs
+      description: Executa query_sql no executador de query do sistema.
+      operationId: chamaExecucaoQuerySQL
+      parameters:
+        - name: id
+          in: path
+          description: ID do query_sql a buscar
+          required: true
+          type: integer
+          format: int64
+        - name: sql
+          in: body
+          description: query_sql adicionado no banco de dados.
+          required: true
+          schema:
+            $ref: '#/definitions/query_sql'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/query_sql'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  query_controle:
+    type:
+      object
+    properties:
+      id_query_controle:
+        type: integer
+        format: int64
+      ativado:
+        type: integer
+        format: int64
+      data_alteracao:
+        type: string
+        format: date-time
+    required:
+      - id_query_controle
+  query_database:
+    type:
+      object
+    properties:
+      id_query_database:
+        type: integer
+        format: int64
+      pool:
+        type: string
+      tipo:
+        type: string
+    required:
+      - id_query_database
+  query_execucao:
+    type:
+      object
+    properties:
+      id_query_execucao:
+        type: integer
+        format: int64
+      id_query_sql:
+        type: integer
+        format: int64
+      status:
+        type: string
+      quantidades:
+        type: integer
+        format: int64
+      tempo_execucao:
+        type: string
+      data_execucao:
+        type: string
+        format: date-time
+    required:
+      - id_query_execucao
+      - id_query_sql
+  query_sql:
+    type:
+      object
+    properties:
+      id_query_sql:
+        type: integer
+        format: int64
+      id_query_database:
+        type: integer
+        format: int64
+      sql:
+        type: string
+      descricao:
+        type: string
+      periocidade:
+        type: string
+      ativado:
+        type: integer
+      excluido:
+        type: integer
+      achieved:
+        type: string
+      achievedCumulative:
+        type: string
+      externalId:
+        type: string
+      month:
+        type: integer
+      year:
+        type: integer
+    required:
+      - id_query_sql
+      - id_query_database
+  Error:
+    required:
+      - code
+      - error
+    properties:
+      code:
+        type: integer
+        format: int32
+      error:
+        type: string

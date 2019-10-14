@@ -33,7 +33,12 @@ module.exports = server => {
       loginService
         .update(user._id, user)
         .then(() => {
-          io.emit("update", (clients[client.id]  ? clients[client.id].nickname : clients[client.id]) + " has left the server.");
+          io.emit(
+            "update",
+            (clients[client.id]
+              ? clients[client.id].nickname
+              : clients[client.id]) + " has left the server."
+          );
           delete clients[client.id];
         })
         .catch(err => console.log(err));
@@ -41,7 +46,12 @@ module.exports = server => {
 
     client.on("disconnect", () => {
       console.log("Disconnect");
-      io.emit("update", (clients[client.id]  ? clients[client.id].nickname : clients[client.id])   + " has left the server.");
+      io.emit(
+        "update",
+        (clients[client.id]
+          ? clients[client.id].nickname
+          : clients[client.id]) + " has left the server."
+      );
       delete clients[client.id];
     });
   });

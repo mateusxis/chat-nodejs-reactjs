@@ -4,7 +4,7 @@ class UserController {
   static async delete(req, res) {
     const { nickname } = req.params;
 
-    await userMode.deleteOne({ nickname }, err => {
+    await userModel.deleteOne({ nickname }, err => {
       if (err) return res.status(400).json(err);
 
       return res.status(200).json("User deleted");
