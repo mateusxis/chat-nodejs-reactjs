@@ -7,7 +7,6 @@ import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 
 import TextFieldCommon from "./TextFieldCommon";
 import Header from "../../components/Header";
-import NotificationMySnack from "../../components/NotificationMySnackbar";
 
 import { isAuthenticated, getToken, logout } from "../../services/auth";
 
@@ -95,15 +94,6 @@ export default function Main({ match }) {
     const newMsg = response.data;
 
     send(newMsg);
-  };
-
-
-  const handleCloseNotification = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
   };
 
   const logoutSystem = async () => {
