@@ -15,6 +15,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-time-format": "^0.0.5",
+    "set-value": "^3.0.1",
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
