@@ -32,6 +32,14 @@ export default makeStyles(theme => ({
   },
   paper: {
     marginLeft: "10px",
-    backgroundColor: green[200]
+    backgroundColor: green[200],
+    padding: theme.spacing(0.5)
+  },
+  fab: {
+    marginRight: theme.spacing(1),
+    backgroundColor: "#f6d347",
+    position: "fixed",
+    right: 0,
+    paddingRight: theme.spacing(1)
   }
 }));

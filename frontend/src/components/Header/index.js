@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import Time from "react-time-format";
-import { AppBar, Toolbar, List, ListItem, Paper, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, List, ListItem, Paper, Typography, Fab } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
 
 import useStyles from "./styles";
@@ -33,9 +33,10 @@ export default function Header({ nickname, dateLogin, logoutSystem, open, messag
               </Typography>
             </Paper>
             : null}
-          <Link className={classes.logout} to="/" onClick={logoutSystem}>
+            
+          <Fab className={classes.fab} variant="extended" aria-label="delete" onClick={logoutSystem}>
             Logout <ExitToApp />
-          </Link>
+          </Fab>  
         </Toolbar>
       </AppBar>
     </Fragment>
