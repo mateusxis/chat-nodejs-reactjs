@@ -15,6 +15,47 @@ consumes:
 produces:
   - application/json
 paths:
+  /login:
+    post:
+      tags: 
+      - Login
+      description: Login of user
+      operationId: login
+      parameters:
+        - name: login
+          in: body
+          description: user will login
+          required: true
+          schema:
+            $ref: '#/definitions/login'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/user'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
+  /logout/{id}:
+    post:
+      tags: 
+      - Login
+      description: Logout of user
+      operationId: logout
+      parameters:
+        - name: id
+          in: path
+          description: _id of user
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error'
   /messages:
     get:
       tags: 
@@ -228,6 +269,12 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 definitions:
+  login:
+    type:
+      object
+    properties:
+      nickname:
+        type: string
   message:
     type:
       object
