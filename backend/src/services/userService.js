@@ -1,7 +1,7 @@
 const api = require("../config/api");
 
 class UserService {
-  static async update(socket, { nickname, _id }) {
+  static async update(socket, { nickname, active, _id }) {
     const response = await api.put(`/users/${_id}`, {
       socket,
       nickname,
