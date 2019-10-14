@@ -20,7 +20,11 @@ export default function Main({ match }) {
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    nickname: "",
+    _id: "",
+    updatedAt: ""
+  });
   const [connected, setConnected] = useState(false);
   const [open, setOpen] = useState(false);
   const [msgNotification, setMsgNotification] = useState("");
@@ -107,7 +111,7 @@ export default function Main({ match }) {
     return <Redirect to={"/"} />;
   }
 
-  if (user.nickname && connected === false) {
+  if (user && user.nickname && connected === false) {
     setConnected(true);
     join(user);
   }
