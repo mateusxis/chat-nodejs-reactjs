@@ -1,55 +1,30 @@
-const userModel = require("../models/User");
+import User from "../models/User.js";
 
-class LoginController {
-  static async create(res, nickname, socket) {
-    await userModel.create(
-      {
-        nickname,
-        socket,
-        active: true
-      },
-      (err, user) => {
-        if (err) return res.status(400).json(err);
-
-        return res.status(201).json(user);
-      }
-    );
-  }
-
-  static async login(req, res) {
-    const { nickname, socket } = req.body;
-
-    await userModel.findOne({ nickname, active: true }, (err, loggedUser) => {
-      if (err) return res.status(400).json(err);
-
-      if (loggedUser !== null)
-        return res
-          .status(200)
-          .json({ message: "This nickname already exists." });
-
-      return LoginController.create(res, nickname, socket);
-    });
-  }
-
-  static async logout(req, res) {
-    const { nickname, socket } = req.body;
-
-    const { id } = req.params;
-
-    await userModel.findByIdAndUpdate(
-      id,
-      {
-        nickname,
-        socket,
-        active: false
-      },
-      (err, user) => {
-        if (err) return res.status(400).json(err);
-
-        return res.status(200).json(user);
-      }
-    );
+export async function login(req, res) {
+  const { nickname, socket } = req.body;
+  try {
+    const existing = await User.findOne({ nickname, active: true });
+    if (existing) {
+      return res.status(200).json({ message: "This nickname already exists." });
+    }
+    const user = await User.create({ nickname, socket, active: true });
+    return res.status(201).json(user);
+  } catch (err) {
+    return res.status(400).json(err);
   }
 }
 
-module.exports = LoginController;
+export async function logout(req, res) {
+  const { nickname, socket } = req.body;
+  const { id } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(
+      id,
+      { nickname, socket, active: false },
+      { new: true }
+    );
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}

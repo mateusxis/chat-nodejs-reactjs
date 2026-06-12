@@ -1,17 +1,12 @@
-const express = require("express");
+import { Router } from "express";
+import { show, index, store, update, remove } from "../controllers/messageController.js";
 
-const messageController = require("../controllers/messageController");
+const router = Router();
 
-const router = express.Router();
+router.get("/", show);
+router.post("/", store);
+router.get("/:id", index);
+router.put("/:id", update);
+router.delete("/:id", remove);
 
-router.get("/", messageController.show);
-
-router.post("/", messageController.store);
-
-router.delete("/:id", messageController.delete);
-
-router.get("/:id", messageController.index);
-
-router.put("/:id", messageController.update);
-
-module.exports = router;
+export default router;

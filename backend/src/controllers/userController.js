@@ -1,62 +1,51 @@
-const userModel = require("../models/User");
+import User from "../models/User.js";
 
-class UserController {
-  static async delete(req, res) {
-    const { nickname } = req.params;
-
-    await userModel.deleteOne({ nickname }, err => {
-      if (err) return res.status(400).json(err);
-
-      return res.status(200).json("User deleted");
-    });
-  }
-
-  static async index(req, res) {
-    const { id } = req.params;
-
-    await userModel.findById(id, (err, loggedUser) => {
-      if (err) return res.status(400).json(err);
-
-      return res.status(200).json(loggedUser);
-    });
-  }
-
-  static async show(req, res) {
-    await userModel.find({}, (err, users) => {
-      if (err) return res.status(400).json(err);
-
-      return res.status(200).json(users);
-    });
-  }
-
-  static async store(req, res) {
-    const { nickname, socket } = req.body;
-
-    await userModel.create(
-      {
-        nickname,
-        socket,
-        active: true
-      },
-      (err, user) => {
-        if (err) return res.status(400).json(err);
-
-        return res.status(201).json(user);
-      }
-    );
-  }
-
-  static async update(req, res) {
-    const { socket, active } = req.body;
-
-    const { id } = req.params;
-
-    await userModel.findByIdAndUpdate(id, { socket, active }, (err, user) => {
-      if (err) return res.status(400).json(err);
-
-      return res.status(200).json(user);
-    });
+export async function show(req, res) {
+  try {
+    const users = await User.find({});
+    return res.status(200).json(users);
+  } catch (err) {
+    return res.status(400).json(err);
   }
 }
 
-module.exports = UserController;
+export async function index(req, res) {
+  const { id } = req.params;
+  try {
+    const user = await User.findById(id);
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}
+
+export async function store(req, res) {
+  const { nickname, socket } = req.body;
+  try {
+    const user = await User.create({ nickname, socket, active: true });
+    return res.status(201).json(user);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}
+
+export async function update(req, res) {
+  const { socket, active } = req.body;
+  const { id } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(id, { socket, active }, { new: true });
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}
+
+export async function remove(req, res) {
+  const { nickname } = req.params;
+  try {
+    await User.deleteOne({ nickname });
+    return res.status(200).json("User deleted");
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}

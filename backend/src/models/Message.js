@@ -1,19 +1,11 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const MessageSchema = new Schema(
   {
-    message: {
-      type: String,
-      required: true
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User"
-    }
+    message: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User" }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
-module.exports = model("Message", MessageSchema);
+export default model("Message", MessageSchema);

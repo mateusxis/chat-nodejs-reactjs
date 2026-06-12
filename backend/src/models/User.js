@@ -1,21 +1,12 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    nickname: {
-      type: String,
-      required: true
-    },
-    socket: {
-      type: String
-    },
-    active: {
-      type: Boolean
-    }
+    nickname: { type: String, required: true },
+    socket: { type: String },
+    active: { type: Boolean }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
-module.exports = model("User", UserSchema);
+export default model("User", UserSchema);

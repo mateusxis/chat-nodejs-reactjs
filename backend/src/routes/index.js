@@ -1,24 +1,19 @@
-const loginRouter = require("./loginRouter");
-const messageRouter = require("./messageRouter");
-const userRouter = require("./userRouter");
+import loginRouter from "./loginRouter.js";
+import userRouter from "./userRouter.js";
+import messageRouter from "./messageRouter.js";
 
-const notFoundRouter = function(req, res) {
-  return res.status(404).json({ message: "Recurso não encontrado!" });
-};
+const notFound = (req, res) => res.status(404).json({ message: "Recurso não encontrado!" });
+const invalid = (req, res) => res.status(400).json({ message: "Requisição inválida!" });
 
-const invalidRouter = function(req, res) {
-  return res.status(400).json({ message: "Requisição inválida!" });
-};
-
-module.exports = app => {
+export function registerRoutes(app) {
   app.use("/api/messages", messageRouter);
-  app.use("/api/messages", invalidRouter);
+  app.use("/api/messages", invalid);
 
   app.use("/api/users", userRouter);
-  app.use("/api/users", invalidRouter);
+  app.use("/api/users", invalid);
 
   app.use("/api", loginRouter);
-  app.use("/api", invalidRouter);
+  app.use("/api", invalid);
 
-  app.use(notFoundRouter);
-};
+  app.use(notFound);
+}
