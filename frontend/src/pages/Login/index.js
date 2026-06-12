@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
-import Typography from "@material-ui/core/Typography";
-import Error from "@material-ui/icons/Error";
+import Typography from "@mui/material/Typography";
+import Error from "@mui/icons-material/Error";
 
 import logo from "../../assets/logo.svg";
 import "./styles.css";
@@ -10,7 +10,8 @@ import "./styles.css";
 import api from "../../services/api";
 import { isAuthenticated, login } from "../../services/auth";
 
-export default function Login({ history }) {
+export default function Login() {
+  const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
   const [nicknameError, setNicknameError] = useState(false);
   const [error, setError] = useState("");
@@ -31,7 +32,7 @@ export default function Login({ history }) {
 
           login(_id);
 
-          history.push("/chat");
+          navigate("/chat");
         }
       })
       .catch(() => {
@@ -58,7 +59,7 @@ export default function Login({ history }) {
   }
 
   if (isAuthenticated()) {
-    return <Redirect to={"/chat"} />;
+    return <Navigate to="/chat" replace />;
   }
 
   return (

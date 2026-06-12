@@ -2,15 +2,15 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import Time from "react-time-format";
-import { AppBar, Toolbar, List, ListItem, Paper, Typography, Fab } from "@material-ui/core";
-import { ExitToApp } from "@material-ui/icons";
+import { AppBar, Toolbar, List, ListItem, Paper, Typography, Fab } from "@mui/material";
+import { ExitToApp } from "@mui/icons-material";
 
-import useStyles from "./styles";
+import { useStyles } from "./styles";
 
 import logo from "../../assets/logo.svg";
 
 export default function Header({ nickname, dateLogin, logoutSystem, open, message }) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Fragment>
@@ -26,17 +26,17 @@ export default function Header({ nickname, dateLogin, logoutSystem, open, messag
               <Time value={dateLogin} format="hh:mm" />
             </ListItem>
           </List>
-          {open ? 
+          {open ?
             <Paper className={classes.paper}>
               <Typography component="p">
                 {message}
               </Typography>
             </Paper>
             : null}
-            
+
           <Fab className={classes.fab} variant="extended" aria-label="delete" onClick={logoutSystem}>
             Logout <ExitToApp />
-          </Fab>  
+          </Fab>
         </Toolbar>
       </AppBar>
     </Fragment>

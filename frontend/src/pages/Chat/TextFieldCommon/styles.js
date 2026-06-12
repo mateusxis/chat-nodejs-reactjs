@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "tss-react/mui";
 
-export default makeStyles(theme => ({
+export const useStyles = makeStyles()((theme) => ({
   textField: {
     position: "fixed",
     bottom: "10px",

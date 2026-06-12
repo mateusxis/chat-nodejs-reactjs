@@ -1,7 +1,7 @@
-import { makeStyles } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import { makeStyles } from "tss-react/mui";
+import { green } from "@mui/material/colors";
 
-export default makeStyles(theme => ({
+export const useStyles = makeStyles()((theme) => ({
   rootHeader: {
     color: "#6d6f72",
     backgroundColor: "#FFF"

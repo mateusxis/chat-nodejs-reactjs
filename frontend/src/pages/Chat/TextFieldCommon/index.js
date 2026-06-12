@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 
-import { TextField, IconButton, InputAdornment } from "@material-ui/core";
-import { Send } from "@material-ui/icons";
+import { TextField, IconButton, InputAdornment } from "@mui/material";
+import { Send } from "@mui/icons-material";
 
-import useStyles from "./styles";
+import { useStyles } from "./styles";
 
 export default function TextFieldCommon({ message, setMessage, handleClick }) {
-  const classes = useStyles();
+  const { classes } = useStyles();
 
   return (
     <Fragment>

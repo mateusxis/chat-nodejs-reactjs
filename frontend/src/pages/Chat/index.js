@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import Time from "react-time-format";
-import { Container, Card } from "@material-ui/core";
-import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
+import { Container, Card } from "@mui/material";
+import { List, ListItem, ListItemText, Typography } from "@mui/material";
 
 import TextFieldCommon from "./TextFieldCommon";
 import Header from "../../components/Header";
@@ -13,10 +13,10 @@ import { isAuthenticated, getToken, logout } from "../../services/auth";
 import api from "../../services/api";
 import socket from "../../services/io";
 
-import useStyles from "./styles";
+import { useStyles } from "./styles";
 
-export default function Main({ match }) {
-  const classes = useStyles();
+export default function Main() {
+  const { classes } = useStyles();
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -29,34 +29,26 @@ export default function Main({ match }) {
   const [open, setOpen] = useState(false);
   const [msgNotification, setMsgNotification] = useState("");
 
-  
-
   useEffect(() => {
     if (isAuthenticated()) {
       async function loadMessages() {
         const response = await api.get("/messages");
-
         setMessages(response.data);
       }
 
       async function loadUser() {
         const userId = getToken();
-
         const response = await api.get(`/users/${userId}`);
-
-        const loggedUser = response.data;
-
-        setUser(loggedUser);
+        setUser(response.data);
       }
 
       loadMessages();
       loadUser();
     }
-  }, [match]);
+  }, []);
 
   async function updateMessage() {
     const response = await api.get("/messages");
-
     setMessages(response.data);
   }
 
@@ -74,12 +66,11 @@ export default function Main({ match }) {
     setOpen(true);
     setMsgNotification(msg);
     setTimeout(() => { setOpen(false); }, 3000);
-  }
+  };
 
   const join = loggedUser => {
     if (loggedUser.nickname) {
       socket.emit("join", loggedUser);
-    
       init();
     }
   };
@@ -96,19 +87,17 @@ export default function Main({ match }) {
     });
 
     const newMsg = response.data;
-
     send(newMsg);
   };
 
   const logoutSystem = async () => {
     const userId = getToken();
     logout();
-
     await api.post(`/logout/${userId}`, user);
   };
 
   if (!isAuthenticated()) {
-    return <Redirect to={"/"} />;
+    return <Navigate to="/" replace />;
   }
 
   if (user && user.nickname && connected === false) {

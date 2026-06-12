@@ -1,14 +1,16 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Chat from "./pages/Chat";
 
-export default function Routes() {
+export default function AppRoutes() {
   return (
     <BrowserRouter>
-      <Route path="/" exact component={Login} />
-      <Route path="/chat" component={Chat} />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
     </BrowserRouter>
   );
 }
